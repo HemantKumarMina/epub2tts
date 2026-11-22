@@ -1,9 +1,3 @@
-NOTE: If you are using this with Coqui for voice cloning, I urge you to check out [epub2tts-chatterbox](https://github.com/aedocw/epub2tts-chatterbox)! It is SO much better! Requires GPU, and is kind of slow, but the quality is amazing. No halucinations, way better emotion, it is a HUGE improvement!
-
-Also take a look at [epub2tts-vibevoice](https://github.com/aedocw/epub2tts-vibevoice), which uses Microsoft VibeVoice. That TTS engine handles long text really well, and the output is very high quality.
-
-> epub2tts is a free and open source python app to easily create a full-featured audiobook from an epub or text file using realistic text-to-speech from [Coqui AI TTS](https://github.com/coqui-ai/TTS), OpenAI or MS Edge.
-> Also check out [epub2tts-edge](https://github.com/aedocw/epub2tts-edge) and [epub2tts-kokoro](https://github.com/aedocw/epub2tts-kokoro) for lighter-weight engine-specific versions. The kokoro engine is especially good and fast!
 
 ## 🚀 Features
 
@@ -19,32 +13,19 @@ Also take a look at [epub2tts-vibevoice](https://github.com/aedocw/epub2tts-vibe
 
 **NOTE:** NEW MULTIPROCESSING FEATURE ADDED! You can now use `--threads N` to specify the number of threads to run where chapters will be processed in parallel! If you're using Edge or OpenAI you can set threads to as many chapters as you've got and they can all be processed at the same time. When using TTS/XTTS, you'll need to do some experimenting to see what your system can handle.
 
-**NOTE:** Check out [epub2tts-edge](https://github.com/aedocw/epub2tts-edge/) for a VERY fast lightweight alternative that only works with MS Edge. That version reads multiple sentences in parallel and goes much quicker!
-
 
 ## 📖 Usage
 <details>
 <summary> Usage instructions</summary>
 
-## Extract epub contents to text:
-1. `epub2tts mybook.epub --export txt`
-2. **edit mybook.txt**, replacing `# Part 1` etc with desired chapter names, and removing front matter like table of contents and anything else you do not want read. **Note:** First two lines can be Title: and Author: to use that in audiobook metadata. **ALSO NOTE** After Author/Title, the book copy MUST start with a chapter or section marked by a line with a hashmark at the beginning (like `# Introduction`).
-3. The speaker can be set to change per chapter by appending `% <speaker>` after the chapter name, for instance `# Chapter One % en-US-AvaMultilingualNeural`. See the file `multi-speaker-sample-edge.txt` for an example. **Note:** Only works with Coqui TTS multi-speaker engine (default) or `--engine edge`.
 
 ## Default audiobook, fairly quick:
 Using VITS model, all defaults, no GPU required:
 
 * `epub2tts mybook.epub` (To change speaker (ex p307 for a good male voice w/Coqui TTS), add: `--speaker p307`)
 
-## Kokoro
-Uses [Kokoro](https://github.com/hexgrad/kokoro), really high quality TTS.
 
-* Specify a speaker with `--speaker <speaker>`. [Check here for available voices](https://huggingface.co/hexgrad/Kokoro-82M/blob/main/VOICES.md), default speaker is `af_sky` if `--speaker` is not specified.
-* `epub2tts mybook.txt --engine kokoro --speaker am_michael --speed 1.3`
-* NOTE: Speed config is ignored for now, will fix at some point :)
 
-## MS Edge Cloud TTS:
-Uses [Microsoft Edge TTS](https://github.com/rany2/edge-tts/) in the cloud, FREE, only minimal CPU required, and it's pretty fast (100 minutes for 7hr book for instance). Many voices and languages to choose from, and the quality is really good (listen to `sample-en-US-AvaNeural-edge.m4b` for an example).
 
 * List available voices with `edge-tts --list-voices`, default speaker is `en-US-AndrewNeural` if `--speaker` is not specified.
 * `epub2tts mybook.txt --engine edge --speaker en-US-AvaNeural --cover cover-image.jpg --sayparts`
@@ -86,9 +67,6 @@ Uses [Microsoft Edge TTS](https://github.com/rany2/edge-tts/) in the cloud, FREE
 
 ## 🐞 Reporting bugs
 <details>
-<summary>How to report bugs/issues</summary>
-
-Thank you in advance for reporting any bugs/issues you encounter! If you are having issues, first please [search existing issues](https://github.com/aedocw/epub2tts/issues) to see if anyone else has run into something similar previously.
 
 If you've found something new, please open an issue and be sure to include:
 1. The full command you executed
@@ -98,24 +76,6 @@ If you've found something new, please open an issue and be sure to include:
 5. Relevant output around the crash, including the sentence (should be in debug output) if it crashed during a TTS step
 
 </details>
-
-## 🗒️ Release notes
-<details>
-<summary>Release notes </summary>
-
-* 20250216: Added Kokoro engine, still need to fix using speed parameter
-* 20241005: A few new releases thanks to excellent contributions from https://github.com/calledit - this includes significant refactoring to improve the code base, adding `--threads N` feature for multiprocessing, and support for NCX files that improves detection of how text is separated in an epub.
-* 20240403: Added support for specifying speaker per chapter, https://github.com/aedocw/epub2tts/issues/229
-* 20240320: Added MS Edge cloud TTS support
-* 20240301: Added `--skip-cleanup` option to skip replacement of special characters with ","
-* 20240222: Implemented pause between sentences, https://github.com/aedocw/epub2tts/issues/208 and https://github.com/aedocw/epub2tts/issues/153
-* 20240131: [Repaired missing pause between chapters](https://github.com/aedocw/epub2tts/issues/204)
-* 20240114: Updated README
-* 20240111: Added support for Title & Author in text files
-* 20240110: Added support for "--cover image.jpg"
-
-</details>
-
 ## Performance
 <details>
 <summary>Some benchmarks</summary>
@@ -277,24 +237,3 @@ pip install -r requirements.txt
 4. `pip install . --upgrade`
 </details>
 
-
-## Author
-
-👤 **Christopher Aedo**
-
-- Website: [aedo.dev](https://aedo.dev)
-- GitHub: [@aedocw](https://github.com/aedocw)
-- LinkedIn: [@aedo](https://linkedin.com/in/aedo)
-
-👥 **Contributors**
-
-[![Contributors](https://contrib.rocks/image?repo=aedocw/epub2tts)](https://github.com/aedocw/epub2tts/graphs/contributors)
-
-## 🤝 Contributing
-
-Contributions, issues and feature requests are welcome!\
-Feel free to check the [issues page](https://github.com/aedocw/epub2tts/issues) or [discussions page](https://github.com/aedocw/epub2tts/discussions).
-
-## Show your support
-
-Give a ⭐️ if this project helped you!
